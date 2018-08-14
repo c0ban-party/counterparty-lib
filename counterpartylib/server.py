@@ -5,10 +5,6 @@ import decimal
 import pprint
 import sys
 import logging
-import time
-import dateutil.parser
-import calendar
-import traceback
 import binascii
 import socket
 import signal
@@ -197,7 +193,7 @@ def initialise_config(database_file=None, log_file=None, api_log_file=None,
     if backend_user:
         config.BACKEND_USER = backend_user
     else:
-        config.BACKEND_USER = 'bitcoinrpc'
+        config.BACKEND_USER = 'rpc'
 
     # Backend Core RPC password (Bitcoin Core)
     if backend_password:

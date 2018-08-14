@@ -946,13 +946,13 @@ def list_tx(db, block_hash, block_index, block_time, tx_hash, tx_index, tx_hex=N
 def kickstart(db, bitcoind_dir):
     if bitcoind_dir is None:
         if platform.system() == 'Darwin':
-            bitcoind_dir = os.path.expanduser('~/Library/Application Support/Bitcoin/')
+            bitcoind_dir = os.path.expanduser('~/Library/Application Support/c0ban/')
         elif platform.system() == 'Windows':
-            bitcoind_dir = os.path.join(os.environ['APPDATA'], 'Bitcoin')
+            bitcoind_dir = os.path.join(os.environ['APPDATA'], 'c0ban')
         else:
-            bitcoind_dir = os.path.expanduser('~/.bitcoin')
+            bitcoind_dir = os.path.expanduser('~/.c0ban')
     if not os.path.isdir(bitcoind_dir):
-        raise Exception('Bitcoin Core data directory not found at {}. Use --bitcoind-dir parameter.'.format(bitcoind_dir))
+        raise Exception('c0ban Core data directory not found at {}. Use --bitcoind-dir parameter.'.format(bitcoind_dir))
 
     cursor = db.cursor()
 

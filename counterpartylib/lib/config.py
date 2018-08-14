@@ -31,34 +31,45 @@ OP_RETURN_MAX_SIZE = 80  # bytes
 
 
 # Currency agnosticism
-BTC = 'BTC'
-XCP = 'XCP'
+BTC = 'RYO'
+XCP = 'XBP'
 
-BTC_NAME = 'Bitcoin'
-XCP_NAME = 'Counterparty'
+BTC_NAME = 'c0ban'
+XCP_NAME = 'c0ban-party'
 APP_NAME = XCP_NAME.lower()
 
 DEFAULT_RPC_PORT_TESTNET = 14000
 DEFAULT_RPC_PORT = 4000
 
-DEFAULT_BACKEND_PORT_TESTNET = 18332
-DEFAULT_BACKEND_PORT = 8332
+DEFAULT_BACKEND_PORT_TESTNET = 13882
+DEFAULT_BACKEND_PORT = 3882
 
 DEFAULT_INDEXD_PORT_TESTNET = 18432
 DEFAULT_INDEXD_PORT = 8432
 
-UNSPENDABLE_TESTNET = 'mvCounterpartyXXXXXXXXXXXXXXW24Hef'
-UNSPENDABLE_MAINNET = '1CounterpartyXXXXXXXXXXXXXXXUWLpVr'
-
+# testnet
+UNSPENDABLE_TESTNET = 'msVB7uMdzAwgQuph5pL8Zb7aiYgjYoFH1q'
 ADDRESSVERSION_TESTNET = b'\x6f'
 P2SH_ADDRESSVERSION_TESTNET = b'\xc4'
 PRIVATEKEY_VERSION_TESTNET = b'\xef'
-ADDRESSVERSION_MAINNET = b'\x00'
-P2SH_ADDRESSVERSION_MAINNET = b'\x05'
-PRIVATEKEY_VERSION_MAINNET = b'\x80'
 MAGIC_BYTES_TESTNET = b'\xfa\xbf\xb5\xda'   # For bip-0010
-MAGIC_BYTES_MAINNET = b'\xf9\xbe\xb4\xd9'   # For bip-0010
 
+# mainnet
+# UNSPENDABLE_MAINNET = '8C0banpartyCBBBBBBBBBBBBBBBBBUzGgh'  # TODO decide address
+# ADDRESSVERSION_MAINNET = b'\x12'
+# P2SH_ADDRESSVERSION_MAINNET = b'\x1c'
+# PRIVATEKEY_VERSION_MAINNET = b'\x88'
+# MAGIC_BYTES_MAINNET = b'\x63\x30\x62\x6e'   # For bip-0010
+
+# regtest
+UNSPENDABLE_MAINNET = 'mhs85bdvdYmbxwyreXLscm2qzAgcxmF7aH'
+ADDRESSVERSION_MAINNET = b'\x6f'  # 111
+P2SH_ADDRESSVERSION_MAINNET = b'\xc4'  # 196
+PRIVATEKEY_VERSION_MAINNET = b'\xef'  # 239
+MAGIC_BYTES_MAINNET = b'\xfa\xbf\xb5\xda'   # For bip-0010
+
+
+# testnet
 BLOCK_FIRST_TESTNET_TESTCOIN = 310000
 BURN_START_TESTNET_TESTCOIN = 310000
 BURN_END_TESTNET_TESTCOIN = 4017708     # Fifty years, at ten minutes per block.
@@ -68,25 +79,27 @@ BLOCK_FIRST_TESTNET_HASH = '000000001f605ec6ee8d2c0d21bf3d3ded0a31ca837acc988938
 BURN_START_TESTNET = 310000
 BURN_END_TESTNET = 4017708              # Fifty years, at ten minutes per block.
 
-BLOCK_FIRST_MAINNET_TESTCOIN = 278270
-BURN_START_MAINNET_TESTCOIN = 278310
+
+# mainnet
+BLOCK_FIRST_MAINNET_TESTCOIN = 100  # TODO decide
+BURN_START_MAINNET_TESTCOIN = 100  # TODO decide
 BURN_END_MAINNET_TESTCOIN = 2500000     # A long time.
 
-BLOCK_FIRST_MAINNET = 278270
-BLOCK_FIRST_MAINNET_HASH = '00000000000000017bac9a8e85660ad348050c789922d5f8fe544d473368be1a'
-BURN_START_MAINNET = 278310
-BURN_END_MAINNET = 283810
+BLOCK_FIRST_MAINNET = 100  # TODO decide
+BLOCK_FIRST_MAINNET_HASH = '6877d22e6adf7bb58838c0dd19fa2e24200a14b8a5d00a29ec22e0f25ca17481'
+BURN_START_MAINNET = 100  # TODO decide
+BURN_END_MAINNET = 1179440
 
 
 # Protocol defaults
 # NOTE: If the DUST_SIZE constants are changed, they MUST also be changed in counterblockd/lib/config.py as well
     # TODO: This should be updated, given their new configurability.
 # TODO: The dust values should be lowered by 90%, once transactions with smaller outputs start confirming faster: <https://github.com/mastercoin-MSC/spec/issues/192>
-DEFAULT_REGULAR_DUST_SIZE = 5430         # TODO: This is just a guess. I got it down to 5530 satoshis.
-DEFAULT_MULTISIG_DUST_SIZE = 7800        # <https://bitcointalk.org/index.php?topic=528023.msg7469941#msg7469941>
+DEFAULT_REGULAR_DUST_SIZE = 54600         # TODO: This is just a guess. I got it down to 5530 satoshis.
+DEFAULT_MULTISIG_DUST_SIZE = 78000        # <https://bitcointalk.org/index.php?topic=528023.msg7469941#msg7469941>
 DEFAULT_OP_RETURN_VALUE = 0
-DEFAULT_FEE_PER_KB = 25000               # sane/low default, also used as minimum when estimated fee is used
-ESTIMATE_FEE_PER_KB = True               # when True will use `estimatefee` from bitcoind instead of DEFAULT_FEE_PER_KB
+DEFAULT_FEE_PER_KB = 50000               # sane/low default, also used as minimum when estimated fee is used
+ESTIMATE_FEE_PER_KB = False               # when True will use `estimatefee` from bitcoind instead of DEFAULT_FEE_PER_KB
 ESTIMATE_FEE_NBLOCKS = 3
 
 # UI defaults

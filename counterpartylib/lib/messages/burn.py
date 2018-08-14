@@ -73,7 +73,9 @@ def compose (db, source, quantity, overburn=False):
 def parse (db, tx, MAINNET_BURNS, message=None):
     burn_parse_cursor = db.cursor()
 
-    if config.TESTNET:
+    # TODO: Fix mainnet logic
+    # if config.TESTNET:
+    if True:
         problems = []
         status = 'valid'
 
