@@ -156,7 +156,7 @@ def parse (db, tx, message):
 
     # Unpack message.
     try:
-        if (tx['block_index'] > 288150 or config.TESTNET) and len(message) == LENGTH_2:
+        if (tx['block_index'] > 0 or config.TESTNET) and len(message) == LENGTH_2:
             quantity_per_unit, asset_id, dividend_asset_id = struct.unpack(FORMAT_2, message)
             asset = util.get_asset_name(db, asset_id, tx['block_index'])
             dividend_asset = util.get_asset_name(db, dividend_asset_id, tx['block_index'])
