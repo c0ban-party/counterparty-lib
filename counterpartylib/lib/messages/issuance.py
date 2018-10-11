@@ -187,20 +187,7 @@ def validate (db, source, destination, asset, quantity, divisible, callable_, ca
                               WHERE (address = ? AND asset = ?)''', (source, config.XCP))
             balances = cursor.fetchall()
             cursor.close()
-            if util.enabled('numeric_asset_names'):  # Protocol change.
-                if subasset_longname is not None and util.enabled('subassets'): # Protocol change.
-                    # subasset issuance is 0.25
-                    fee = int(0.25 * config.UNIT)
-                elif len(asset) >= 13:
-                    fee = 0
-                else:
-                    fee = int(0.5 * config.UNIT)
-            elif block_index >= 291700 or config.TESTNET:     # Protocol change.
-                fee = int(0.5 * config.UNIT)
-            elif block_index >= 286000 or config.TESTNET:   # Protocol change.
-                fee = 5 * config.UNIT
-            elif block_index > 281236 or config.TESTNET:    # Protocol change.
-                fee = 5
+            fee = quantity
             if fee and (not balances or balances[0]['quantity'] < fee):
                 problems.append('insufficient funds')
 
