@@ -584,6 +584,8 @@ class APIServer(threading.Thread):
                         'asset_longname': None,
                         'owner': None,
                         'divisible': True,
+                        'listed': True,
+                        'reassignable': True,
                         'locked': False,
                         'supply': supply,
                         'description': '',
@@ -607,6 +609,8 @@ class APIServer(threading.Thread):
                     'asset_longname': last_issuance['asset_longname'],
                     'owner': last_issuance['issuer'],
                     'divisible': bool(last_issuance['divisible']),
+                    'listed': bool(last_issuance['listed']),
+                    'reassignable': bool(last_issuance['reassignable']),
                     'locked': locked,
                     'supply': util.asset_supply(self.db, asset),
                     'description': last_issuance['description'],
@@ -803,6 +807,16 @@ class APIServer(threading.Thread):
                 response.headers['Access-Control-Allow-Origin'] = '*'
                 response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
                 response.headers['Access-Control-Allow-Headers'] = 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization'
+
+        @app.route('/healthz', methods=['GET'])
+        def handle_healthz():
+            msg, code = 'Healthy', 200
+            try:
+                latestBlockIndex = backend.getblockcount()
+                check_database_state(self.db, latestBlockIndex)
+            except DatabaseError:
+                msg, code = 'Unhealthy', 503
+            return flask.Response(msg, code, mimetype='text/plain')
 
         @app.route('/', defaults={'args_path': ''}, methods=['GET', 'POST', 'OPTIONS'])
         @app.route('/<path:args_path>',  methods=['GET', 'POST', 'OPTIONS'])
