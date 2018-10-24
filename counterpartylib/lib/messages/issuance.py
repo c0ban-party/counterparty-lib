@@ -178,22 +178,17 @@ def validate (db, source, destination, asset, quantity, divisible, callable_, ca
             problems.append('a subasset must be a numeric asset')
 
 
-    
-    # Check for existence of fee funds.
-    if quantity or (block_index >= 315000 or config.TESTNET):   # Protocol change.
-        if not reissuance or (block_index < 310000 and not config.TESTNET):  # Pay fee only upon first issuance. (Protocol change.)
-            cursor = db.cursor()
-            cursor.execute('''SELECT * FROM balances \
-                              WHERE (address = ? AND asset = ?)''', (source, config.XCP))
-            balances = cursor.fetchall()
-            cursor.close()
-            fee = quantity
-            if fee and (not balances or balances[0]['quantity'] < fee):
-                problems.append('insufficient funds')
 
-    if not (block_index >= 317500 or config.TESTNET):  # Protocol change.
-        if len(description) > 42:
-            problems.append('description too long')
+    # Check for existence of fee funds.
+    if not reissuance:
+        cursor = db.cursor()
+        cursor.execute('''SELECT * FROM balances \
+                          WHERE (address = ? AND asset = ?)''', (source, config.XCP))
+        balances = cursor.fetchall()
+        cursor.close()
+        fee = quantity
+        if fee and (not balances or balances[0]['quantity'] < fee):
+            problems.append('insufficient funds')
 
     # For SQLite3
     call_date = min(call_date, config.MAX_INT)
