@@ -90,10 +90,7 @@ def parse (db, tx, MAINNET_BURNS, message=None):
     if status == 'valid':
         # Calculate quantity of XCP earned. (Maximum 1 BTC in total, ever.)
         burned = sent
-        total_time = config.BURN_END - config.BURN_START
-        partial_time = config.BURN_END - tx['block_index']
-        multiplier = (1000 + (500 * Fraction(partial_time, total_time)))
-        earned = round(burned * multiplier)
+        earned = burned * 880
 
         # Credit source address with earned XCP.
         util.credit(db, tx['source'], config.XCP, earned, action='burn', event=tx['tx_hash'])
