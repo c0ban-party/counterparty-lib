@@ -199,7 +199,7 @@ def validate (db, source, destination, asset, quantity, divisible, listed, reass
                           WHERE (address = ? AND asset = ?)''', (source, config.XCP))
         balances = cursor.fetchall()
         cursor.close()
-        fee = quantity
+        fee = int(0.5 * config.UNIT)
         if fee and (not balances or balances[0]['quantity'] < fee):
             problems.append('insufficient funds')
 
