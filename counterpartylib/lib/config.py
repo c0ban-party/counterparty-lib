@@ -34,7 +34,7 @@ OP_RETURN_MAX_SIZE = 80  # bytes
 
 # Currency agnosticism
 BTC = 'RYO'
-XCP = 'OKM'
+XCP = 'XCB'
 
 BTC_NAME = 'c0ban'
 XCP_NAME = 'c0ban-party'
